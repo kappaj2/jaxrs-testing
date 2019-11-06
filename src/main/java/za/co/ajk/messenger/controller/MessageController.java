@@ -38,7 +38,7 @@ public class MessageController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Message createMessage(Message message){
+    public Message createMessage(Message message) {
         return messageService.addMessage(message);
     }
 
@@ -46,7 +46,7 @@ public class MessageController {
     @Path("/{messageId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Message updateMessage(@PathParam("messageId") long messageId, Message message){
+    public Message updateMessage(@PathParam("messageId") long messageId, Message message) {
         message.setId(messageId);
         return messageService.updateMessage(message);
     }
@@ -54,22 +54,8 @@ public class MessageController {
     @DELETE
     @Path("/{messageId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Message deleteMessage(@PathParam("messageId") long messageId){
-        return messageService.deleteMessage(messageId);
+    public void deleteMessage(@PathParam("messageId") long messageId) {
+        messageService.deleteMessage(messageId);
     }
 
-//    @GET
-//    @Path("/getJSON")
-//    @Produces({ MediaType.APPLICATION_JSON})
-//    public List<Message> getMessagesJSON(){
-//        return messageService.getAllMessage();
-//    }
-
-//    @GET
-//    @Path("/getXML")
-//    @Produces(MediaType.APPLICATION_XML)
-//    public List<Message> getMessagesXML(){
-//        return messageService.getAllMessage();
-////        return Response.ok(messageService.getAllMessage()).build();
-//    }
 }
