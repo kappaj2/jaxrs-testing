@@ -13,3 +13,12 @@ s
 Csrc/main/java/za/co/ajk/messenger/controller/MessageController.java,8/a/8a201c88685668cda240124a14bb139b44b6eaa9
 7
 pom.xml,4/4/442292b8a7efeabbe4cc176709b833b1792140ec
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+d
+4src/main/java/za/co/ajk/messenger/model/Profile.java,4/e/4ecc67657f5ca161365b62a58461e0ba0ddeaa12
+h
+8src/main/java/za/co/ajk/messenger/model/DatabaseSim.java,6/8/68061e5b09450c31c0b3ccf5f42a536618cfa8f4
+m
+=src/main/java/za/co/ajk/messenger/service/ProfileService.java,c/b/cbbb3b889505e5b867da192c349f56cff3954f35

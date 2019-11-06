@@ -4,8 +4,10 @@ import za.co.ajk.messenger.model.DatabaseSim;
 import za.co.ajk.messenger.model.Message;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MessageService {
 
@@ -19,6 +21,26 @@ public class MessageService {
 
     public List<Message> getAllMessage() {
         return new ArrayList<>(messages.values());
+    }
+    int getYear(Message message){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(message.getCreated());
+        return cal.get(Calendar.YEAR);
+    }
+
+    public List<Message> getAllMessageForYear(int year) {
+       return messages.values().stream()
+                .filter(message1 -> getYear(message1) == year)
+                .collect(Collectors.toList());
+    }
+
+    public List<Message> getAllMessagesPaginated(int start, int size) {
+
+        List<Message> list = new ArrayList<>(messages.values());
+        if(start + size > list.size()){
+            return new ArrayList<>();
+        }
+        return list.subList(start, start + size);
     }
 
     public Message getMessage(long id) {

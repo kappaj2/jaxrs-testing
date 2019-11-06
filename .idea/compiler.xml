@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="testjaxrs" />
+        <module name="messenger" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="testjaxrs" target="1.8" />
+      <module name="messenger" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
