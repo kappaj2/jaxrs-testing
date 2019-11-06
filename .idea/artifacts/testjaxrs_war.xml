@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="testjaxrs:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>testjaxrs</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="messenger.war">
+      <element id="artifact" artifact-name="testjaxrs:war exploded" />
+    </root>
+  </artifact>
+</component>
