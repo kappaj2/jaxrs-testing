@@ -12,7 +12,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @Path("/messages")
@@ -23,18 +28,30 @@ public class MessageController {
     private static MessageService messageService = new MessageService();
 
     @GET
-    public List<Message> getMessages(@QueryParam("year")int year,
-                                     @QueryParam("start")int start,
-                                     @QueryParam("size")int size) {
-        if(year > 0) {
+    public List<Message> getMessages(@QueryParam("year") int year,
+                                     @QueryParam("start") int start,
+                                     @QueryParam("size") int size) {
+        if (year > 0) {
             return messageService.getAllMessageForYear(year);
         }
-        if (start > 0 && size > 0){
+        if (start > 0 && size > 0) {
             return messageService.getAllMessagesPaginated(start, size);
         }
         return messageService.getAllMessage();
     }
 
+    /*
+        @GET
+    public List<Message> getMessages(@BeanParam MessageFilterBean messageFilterBean) {
+        if (messageFilterBean.getYear() > 0) {
+            return messageService.getAllMessageForYear(messageFilterBean.getYear());
+        }
+        if (messageFilterBean.getStart() > 0 && messageFilterBean.getSize() > 0) {
+            return messageService.getAllMessagesPaginated(messageFilterBean.getStart(), messageFilterBean.getSize());
+        }
+        return messageService.getAllMessage();
+    }
+     */
 
     @GET
     @Path("/{messageId}")
@@ -43,8 +60,23 @@ public class MessageController {
     }
 
     @POST
-    public Message createMessage(Message message) {
-        return messageService.addMessage(message);
+    public Response createMessage(Message message, @Context UriInfo uriInfo) {
+
+//        return Response.status(Response.Status.CREATED)
+//                .entity(messageService.addMessage(message))
+//                .build();
+
+        Message newMessage = messageService.addMessage(message);
+
+        URI uri = uriInfo.getAbsolutePathBuilder()
+                .path(String.valueOf(newMessage.getId()))
+                .build();
+
+        return Response.created(uri)    // created will set code to 201 and add uri value to header
+                .entity(messageService.addMessage(message))
+                .build();
+
+//        return messageService.addMessage(message);
     }
 
     @PUT
@@ -60,4 +92,14 @@ public class MessageController {
         messageService.deleteMessage(messageId);
     }
 
+    // now do the rest endpoint for message -> /message/{messageId}/comments/{commentId}
+
+
+    @Path("/{messageId}/comments")
+    public CommentController getCommentsController() {
+        return new CommentController();
+    }
+
 }
+
+

@@ -1,27 +1,21 @@
 package za.co.ajk.messenger.model;
 
-
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-@XmlRootElement(name = "message")
-public class Message {
+public class Comment {
 
     private long id;
     private String message;
-    private Date created = new Date();
+    private Date created;
     private String author;
-    private Map<Long, Comment> commentMap = new HashMap<>();
 
-    public Message() {
+    public Comment() {
     }
 
-    public Message(long id, String message, String author) {
+    public Comment(long id, String message, Date created, String author) {
         this.id = id;
         this.message = message;
+        this.created = created;
         this.author = author;
     }
 
@@ -55,14 +49,5 @@ public class Message {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    @XmlTransient   // dont show comment data when message is converted.
-    public Map<Long, Comment> getCommentMap() {
-        return commentMap;
-    }
-
-    public void setCommentMap(Map<Long, Comment> commentMap) {
-        this.commentMap = commentMap;
     }
 }
